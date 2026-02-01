@@ -131,7 +131,15 @@ class AppGUI:
         self.btn_pred.config(state='normal')
 
     def appPred(self):
-        pass
+        try:
+            vals = [float(self.entry[f].get()) for f in self.backend.fitur]
+            res = self.backend.predict(vals)
+
+            self.log_text(f">>> Hasil Prediksi Kualitas Udara = {res}")
+            messagebox.showinfo("Hasil Prediksi", f"Kualitas Udara = {res}")
+        except ValueError:
+            self.log_text(">>> Input tidak valid!")
+            messagebox.showerror("Error", "Input tidak valid!")
 
     def visual(self, df, title):
         fig, ax = plt.subplots(figsize=(7,4))
